@@ -38,13 +38,13 @@ public class ToDoDatabaseTest {
     }
     @Test
     public void testInsertToDo() throws Exception {
-        Connection conn = DriverManager.getConnection("jdbc:h2:./main");
+        Connection conn = DriverManager.getConnection(ToDoDatabase.DB_URL);
         String todoText = "UnitTest-ToDo";
 
         todoDatabase.insertToDo(conn, todoText);
 
         // make sure we can retrieve the todo we just created
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM todos where text = ?");
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM todos WHERE text = ?");
         stmt.setString(1, todoText);
         ResultSet results = stmt.executeQuery();
         assertNotNull(results);
@@ -89,5 +89,48 @@ public class ToDoDatabaseTest {
         todoDatabase.deleteToDo(conn, secondToDoText);
     }
 
+    @Test
+    public void testToggleToDo() throws Exception {
 
+        Connection conn = DriverManager.getConnection(ToDoDatabase.DB_URL);
+        int id = 0;
+        String text = "";
+        Boolean isDone;
+
+        String firstToDoText = "UnitTest-ToggleToDo1";
+        todoDatabase.insertToDo(conn, firstToDoText);
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM todos WHERE text = ?");
+        stmt.setString(1, firstToDoText);
+        ResultSet results = stmt.executeQuery();
+        while (results.next()) {
+            id = results.getInt("id");
+            text = results.getString("text");
+            isDone = results.getBoolean("is_Done");
+            assertFalse(isDone);
+            System.out.println(id + " - " + text + " - " + isDone);
+        }
+        ToDoDatabase.toggleToDo(conn, id);
+        results = stmt.executeQuery();
+        while (results.next()) {
+            id = results.getInt("id");
+            text = results.getString("text");
+            isDone = results.getBoolean("is_Done");
+            assertTrue(isDone);
+            System.out.println(id + " - " + text + " - " + isDone);
+        }
+        ToDoDatabase.toggleToDo(conn, id);
+        results = stmt.executeQuery();
+        while (results.next()) {
+            id = results.getInt("id");
+            text = results.getString("text");
+            isDone = results.getBoolean("is_Done");
+            assertFalse(isDone);
+            System.out.println(id + " - " + text + " - " + isDone);
+        }
+        todoDatabase.deleteToDo(conn, text);
+//        PreparedStatement stmtTwo = conn.prepareStatement("UPDATE todos SET is_done = NOT is_done WHERE id = ?");
+//        stmtTwo.setInt(1, id);
+//        stmtTwo.execute();
+
+    }
 }
