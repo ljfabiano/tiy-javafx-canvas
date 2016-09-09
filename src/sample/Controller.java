@@ -45,7 +45,12 @@ public class Controller implements Initializable {
 //        if (username != null && !username.isEmpty()) {
 //            fileName = username + ".json";
 //        }
-
+        //Add a prompt to the app asking the user to enter their username (email address) to retrieve their ToDos
+        //On that prompt, also give the user the option to create a new user:
+        //If they choose to create a new user, ask them for user information (username, which is their email address, and full name)
+        //Use that information to create a new user and start the app with that user
+        //Retrieve the ToDos just for that user and display them in the app
+        //Make sure that when a ToDo is toggled and when a ToDo is created, it's for the user who "signed in"
         System.out.println("Checking existing list ...");
         //ToDoItemList retrievedList = retrieveList();
         myDB = new ToDoDatabase();
@@ -80,7 +85,7 @@ public class Controller implements Initializable {
     public void addItem() {
         System.out.println("Adding item ...");
         try {
-            myDB.insertToDo(conn, todoText.getText());
+            //myDB.insertToDo(conn, todoText.getText());
         }
         catch(Exception e)
         {
