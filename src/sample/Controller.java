@@ -33,7 +33,19 @@ public class Controller implements Initializable {
     ToDoDatabase myDB;
     Connection conn;
 
+    public String userFullName;
     public String username;
+    public User myUser;
+
+    public Controller()
+    {
+
+    }
+    public Controller(String username, String userFullName)
+    {
+        this.username = username;
+        this.userFullName = userFullName;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -57,10 +69,24 @@ public class Controller implements Initializable {
         try {
             myDB.init();
             conn = DriverManager.getConnection(myDB.DB_URL);
-            savableList = myDB.selectToDos(conn);
+            //if (userFullName != null)
+            //{
+                System.out.println("username = " + username);
+                System.out.println("userfullname = " + userFullName);
+                myUser = new User(username, userFullName);
+                myDB.insertUser(conn, username, userFullName);
+                //myUser.id = myDB.
+            //}
+//            else {
+//                myUser = myDB.selectUser(conn, username);
+//                System.out.println("username = " + username);
+//                System.out.println("userfullname = " + userFullName);
+//
+//            }
+            savableList = myDB.selectToDosForUser(conn, myUser.id);
         }catch(Exception e)
         {
-
+            e.printStackTrace();
         }
 
             for (ToDoItem item : savableList) {

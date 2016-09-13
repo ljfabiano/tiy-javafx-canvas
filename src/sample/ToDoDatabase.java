@@ -85,15 +85,30 @@ public class ToDoDatabase {
         stmt.setString(1, username);
         stmt.execute();
     }
-    public void selectUser(Connection conn, String username)throws SQLException
+    public User selectUser(Connection conn, String username)throws SQLException
 {
-    //retrieve a user from the database based on the username and return the corresponding user object
+    //retrieve a user from the database based on the username and return the corresponding user object DONE
     //The selectUser() method should take the username (email address) as the parameter to use to find the user DONE
-    //if the user does not exist, the selectUser() method should return null
+    //if the user does not exist, the selectUser() method should return null DONE
+    User user;
+    int id = 0;
+    String username1 = "";
+    String fullname = "";
     PreparedStatement stmt = conn.prepareStatement("SELECT FROM users where username = ?");
     stmt.setString(1, username);
-    stmt.execute();
-
+    //stmt.execute();
+    ResultSet results = stmt.executeQuery();
+    if (results.next()) {
+        id = results.getInt("id");
+        username1 = results.getString("username");
+        fullname = results.getString("fullname");
+        user = new User(id, username1, fullname);
+        return user;
+    }
+    else
+    {
+        return null;
+    }
 //    stmt = conn.prepareStatement("SELECT * FROM users where username = ?");
 //    stmt.setString(1, username);
 //    ResultSet results = stmt.executeQuery();

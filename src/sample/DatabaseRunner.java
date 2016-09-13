@@ -5,6 +5,7 @@ package sample;
  */
 public class DatabaseRunner {
     public static void main(String[] args) throws Exception {
+        System.out.println("DB runner is running...");
         ToDoDatabase db = new ToDoDatabase();
         db.init();
     }

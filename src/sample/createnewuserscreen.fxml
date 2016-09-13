@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.CreateUserController">
+   <children>
+      <TextArea editable="false" prefHeight="28.0" prefWidth="600.0" text="Type your username below:" />
+      <TextField fx:id="newUsername" />
+      <TextArea editable="false" prefHeight="31.0" prefWidth="600.0" text="Type your full name below:" />
+      <TextField fx:id="newUserFullName" prefHeight="0.0" prefWidth="600.0" />
+      <Button mnemonicParsing="false" onAction="#createNewUserAndLogin" text="Create user and Login" />
+   </children>
+</VBox>
