@@ -46,6 +46,36 @@ public class Controller implements Initializable {
         this.username = username;
         this.userFullName = userFullName;
     }
+    public Controller(String username, String userFullName, ToDoDatabase myDB)
+    {
+        this.username = username;
+        this.userFullName = userFullName;
+        this.myDB = myDB;
+    }
+
+    public String getUserFullName() {
+        return userFullName;
+    }
+
+    public void setUserFullName(String userFullName) {
+        this.userFullName = userFullName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public User getMyUser() {
+        return myUser;
+    }
+
+    public void setMyUser(User myUser) {
+        this.myUser = myUser;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -65,17 +95,28 @@ public class Controller implements Initializable {
         //Make sure that when a ToDo is toggled and when a ToDo is created, it's for the user who "signed in"
         System.out.println("Checking existing list ...");
         //ToDoItemList retrievedList = retrieveList();
+
+
+            for (ToDoItem item : savableList) {
+                todoItems.add(item);
+            }
+
+
+        todoList.setItems(todoItems);
+    }
+
+    public void initUser() {
         myDB = new ToDoDatabase();
         try {
             myDB.init();
             conn = DriverManager.getConnection(myDB.DB_URL);
             //if (userFullName != null)
             //{
-                System.out.println("username = " + username);
-                System.out.println("userfullname = " + userFullName);
-                myUser = new User(username, userFullName);
-                myDB.insertUser(conn, username, userFullName);
-                //myUser.id = myDB.
+            System.out.println("username = " + this.username);
+            System.out.println("userfullname = " + this.userFullName);
+            myUser = new User(this.username, this.userFullName);
+            myUser.setId(myDB.insertUser(conn, this.username, this.userFullName));
+            //myUser.id = myDB.
             //}
 //            else {
 //                myUser = myDB.selectUser(conn, username);
@@ -88,13 +129,6 @@ public class Controller implements Initializable {
         {
             e.printStackTrace();
         }
-
-            for (ToDoItem item : savableList) {
-                todoItems.add(item);
-            }
-
-
-        todoList.setItems(todoItems);
     }
 
     public void saveToDoList() {
@@ -111,7 +145,7 @@ public class Controller implements Initializable {
     public void addItem() {
         System.out.println("Adding item ...");
         try {
-            //myDB.insertToDo(conn, todoText.getText());
+            myDB.insertToDo(conn, todoText.getText(), myUser.getId());
         }
         catch(Exception e)
         {
@@ -181,6 +215,7 @@ public class Controller implements Initializable {
             // from the file, just return null, so the caller knows to create an object from scratch
             return null;
         }
+
     }
     
 }

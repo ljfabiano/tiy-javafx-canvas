@@ -389,3 +389,32 @@ org.h2.jdbc.JdbcSQLException: No data is available [2000-191]
 org.h2.jdbc.JdbcSQLException: No data is available [2000-191]
 2016-09-12 12:57:03 jdbc[4]: exception
 org.h2.jdbc.JdbcSQLException: No data is available [2000-191]
+2016-09-13 17:51:24 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-191]
+2016-09-13 18:11:34 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-191]
+2016-09-13 18:53:09 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-191]
+2016-09-13 18:56:57 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-191]
+2016-09-13 19:02:46 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-191]
+2016-09-13 19:29:11 jdbc[5]: null
+org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-191]
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:173)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:118)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:72)
+	at org.h2.server.web.WebServer.getConnection(WebServer.java:735)
+	at org.h2.server.web.WebApp.login(WebApp.java:955)
+	at org.h2.server.web.WebApp.process(WebApp.java:211)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:170)
+	at org.h2.server.web.WebThread.process(WebThread.java:133)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.h2.jdbc.JdbcSQLException: The connection was not closed by the application and is garbage collected [90018-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 14 more

@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+import java.sql.Connection;
 import java.util.Scanner;
 
 public class SampleFXMLApp extends Application {
@@ -61,7 +62,7 @@ public class SampleFXMLApp extends Application {
         this.userName = userName;
         this.userFullName = userFullName;
 //        String fileName = getParameters().getRaw().get(0);
-
+        User myUser = new User(userName, userFullName);
         //Add a prompt to the app asking the user to enter their username (email address) to retrieve their ToDos
         //On that prompt, also give the user the option to create a new user:
         //If they choose to create a new user, ask them for user information (username, which is their email address, and full name)
@@ -70,11 +71,29 @@ public class SampleFXMLApp extends Application {
         //Make sure that when a ToDo is toggled and when a ToDo is created, it's for the user who "signed in"
         //Controller controller = new Controller(userName, userFullName);
         FXMLLoader fxmlLoader = new FXMLLoader();
+        System.out.println("about to load the root from the FXML file");
+
         Parent root = fxmlLoader.load(getClass().getResource("todolist.fxml").openStream());
+
         //Controller controller = new Controller(userName, userFullName);
+        System.out.println("Getting a reference to the controller");
         Controller controller = (Controller) fxmlLoader.getController();
-        controller.username = userName;
-        controller.userFullName = userFullName;
+
+        System.out.println("Setting the username and user full name on the controller");
+
+
+        controller.setUsername(this.userName);
+        controller.setUserFullName(this.userFullName);
+
+        if(userFullName != null) {
+            controller.initUser();
+        }
+        else
+        {
+            //controller.retrieveList();//need to add method to deal with the no username(returning user) issue...
+        }
+
+        //User myUser = new User(conn, );
         primaryStage.setTitle("TIY ToDo App");
         primaryStage.setScene(new Scene(root, 800, 600));
 

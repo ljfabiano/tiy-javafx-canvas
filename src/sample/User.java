@@ -18,6 +18,7 @@ public class User {
         //this.id = id;
         this.username = username;
         this.fullname = fullname;
+
     }
 
     public User(int id, String username, String fullname)
@@ -41,5 +42,13 @@ public class User {
 
     public void setFullname(String fullname) {
         this.fullname = fullname;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
