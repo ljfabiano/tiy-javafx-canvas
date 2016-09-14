@@ -91,6 +91,7 @@ public class SampleFXMLApp extends Application {
         else
         {
             //controller.retrieveList();//need to add method to deal with the no username(returning user) issue...
+            controller.returningUser(this.userName);
         }
 
         //User myUser = new User(conn, );

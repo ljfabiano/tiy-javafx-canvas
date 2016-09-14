@@ -97,12 +97,12 @@ public class Controller implements Initializable {
         //ToDoItemList retrievedList = retrieveList();
 
 
-            for (ToDoItem item : savableList) {
-                todoItems.add(item);
-            }
+//            for (ToDoItem item : savableList) {
+//                todoItems.add(item);
+//            }
 
 
-        todoList.setItems(todoItems);
+        //todoList.setItems(todoItems);
     }
 
     public void initUser() {
@@ -125,6 +125,45 @@ public class Controller implements Initializable {
 //
 //            }
             savableList = myDB.selectToDosForUser(conn, myUser.id);
+            for (ToDoItem item : savableList) {
+                todoItems.add(item);
+            }
+            todoList.setItems(todoItems);
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void returningUser(String username)
+    {
+        myDB = new ToDoDatabase();
+        this.username = username;
+        try {
+            myDB.init();
+            conn = DriverManager.getConnection(myDB.DB_URL);
+            //if (userFullName != null)
+            //{
+            System.out.println("username = " + this.username);
+            //get user based on username method
+            myUser = myDB.selectUser(conn, this.username);
+            userFullName = myUser.getFullname();
+            System.out.println("userfullname = " + this.userFullName);
+            //myUser = new User(this.username, this.userFullName);
+            //myUser.setId(myDB.insertUser(conn, this.username, this.userFullName));
+            //myUser.id = myDB.
+            //}
+//            else {
+//                myUser = myDB.selectUser(conn, username);
+//                System.out.println("username = " + username);
+//                System.out.println("userfullname = " + userFullName);
+//
+//            }
+            savableList = myDB.selectToDosForUser(conn, myUser.id);
+            for (ToDoItem item : savableList) {
+                todoItems.add(item);
+            }
+            todoList.setItems(todoItems);
         }catch(Exception e)
         {
             e.printStackTrace();

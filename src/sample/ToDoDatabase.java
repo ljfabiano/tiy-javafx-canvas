@@ -94,7 +94,7 @@ public class ToDoDatabase {
     int id = 0;
     String username1 = "";
     String fullname = "";
-    PreparedStatement stmt = conn.prepareStatement("SELECT FROM users where username = ?");
+    PreparedStatement stmt = conn.prepareStatement("SELECT * FROM users where username = ?");
     stmt.setString(1, username);
     //stmt.execute();
     ResultSet results = stmt.executeQuery();
@@ -103,6 +103,9 @@ public class ToDoDatabase {
         username1 = results.getString("username");
         fullname = results.getString("fullname");
         user = new User(id, username1, fullname);
+        System.out.println("username = " + user.getUsername());
+        System.out.println("fullname = " + user.getFullname());
+        System.out.println("id = " + user.getId());
         return user;
     }
     else
